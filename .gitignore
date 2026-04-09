@@ -55,7 +55,7 @@ htmlcov/
 Thumbs.db
 *.tmp
 
-# Data and working files - Excel
+# Excel data files (source and output)
 *.xlsx
 *.xls
 
@@ -63,8 +63,8 @@ Thumbs.db
 analysis_output.txt
 detailed_review.txt
 
-# Local Claude settings
-.claude/settings.local.json
-
 # JSON data files
 template_analysis.json
+
+# Local Claude settings
+.claude/settings.local.json

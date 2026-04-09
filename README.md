@@ -1,61 +1,81 @@
 # Excel Template Mapper
 
-Automates the population of shipping and procurement Excel templates (SCI and PL formats) from inbound product list source data. Maps fields from source data sheets, generates Excel formulas for automatic population, and identifies unmappable fields.
+An automated Excel data mapping and formula generation tool that transforms raw product and container data into standardized supply chain templates. Maps data from YW1 Inbound PL sheets into SCI (Shipping Confirmation Item) and PL (Packing List) templates with intelligent field matching and formula population.
 
 ## Features
 
-- **Automated Field Mapping**: Maps columns from source "YW1 Inbound PL" and "Container" sheets to template fields
-- **Formula Generation**: Creates Excel formulas to automatically populate template fields with source data
-- **Unmappable Field Detection**: Identifies and reports fields that cannot be automatically mapped
-- **Template Analysis**: Analyzes template structure and validates mapping coverage
-- **Summary Reports**: Generates comprehensive reports of mapping results and formula applications
+- **Automated Field Mapping**: Analyzes source data headers and intelligently maps to template fields
+- **Formula Generation**: Automatically populates template cells with Excel formulas that reference source data
+- **Unmappable Field Detection**: Identifies fields that require manual intervention
+- **Comprehensive Reporting**: Generates detailed analysis of mapping coverage and formula completeness
+- **Multi-Sheet Support**: Works with multiple source sheets (YW1 Inbound PL, Container data)
 
 ## Tech Stack
 
-- Python 3.7+
-- openpyxl (Excel file manipulation)
-- pandas (data analysis)
-- Standard library: json, re, collections
+- **Python 3.x**
+- **openpyxl** - Excel file manipulation
+- **pandas** - Data analysis and processing
 
 ## Setup
 
-1. **Create a virtual environment**:
+1. Create a virtual environment:
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate
    ```
 
-2. **Install dependencies**:
+2. Install dependencies:
    ```bash
    pip install openpyxl pandas
    ```
 
-3. **Prepare input files**:
-   - Place your "YW1 Inbound PL.xlsx" workbook in the project root
-   - Ensure it contains sheets: "YW1 Inbound PL", "Container", "SCI Template - Single Batch", "PL Template - Single Batch"
+3. Prepare your source Excel file:
+   - Place `YW1 Inbound PL.xlsx` in the project root
+   - Ensure source sheets exist: "YW1 Inbound PL", "Container"
+   - Ensure template sheets exist: "SCI Template - Single Batch", "PL Template - Single Batch"
 
 ## Usage
 
-Run the mapping and formula generation workflow:
-
+### 1. Initial Analysis
+Explore your Excel structure:
 ```bash
-# 1. Analyze templates and map source columns
+python explore_excel.py
+```
+
+### 2. Analyze and Build Mappings
+Map source columns to template fields:
+```bash
 python map_and_generate_formulas.py
+```
 
-# 2. Add formulas to templates
+### 3. Add Formulas to Templates
+Populate templates with formulas:
+```bash
 python add_formulas_to_templates.py
+```
 
-# 3. Generate summary report
+### 4. Generate Summary Report
+Create a comprehensive review:
+```bash
 python create_summary_report.py
 ```
 
-Each script outputs progress and analysis results to the console. Generated Excel files will include formulas automatically populating template fields from source data.
+The tool generates:
+- `analysis_output.txt` - Detailed field-by-field analysis
+- `detailed_review.txt` - Template structure review
+- Modified Excel files with formulas populated
+- `template_analysis.json` - Machine-readable mapping data
 
-## Project Structure
+## Workflow
 
-- `map_and_generate_formulas.py` - Maps source data columns to template fields
-- `add_formulas_to_templates.py` - Injects Excel formulas into templates
-- `create_summary_report.py` - Generates comprehensive mapping reports
-- `analyze_templates.py` - Analyzes template structure and fields
-- `detailed_template_review.py` - Detailed structural analysis
-- `explore_excel.py` - Explores workbook layout and formula discovery
+1. Run `explore_excel.py` to understand your workbook structure
+2. Run `map_and_generate_formulas.py` to identify available mappings
+3. Run `add_formulas_to_templates.py` to populate templates with formulas
+4. Review `analysis_output.txt` and `detailed_review.txt` for unmappable fields
+5. Manually handle unmappable fields as needed
+
+## Output Files
+
+- `YW1 Inbound PL_with_unmapped.xlsx` - Initial mapping with unmapped fields identified
+- `YW1 Inbound PL_with_formulas.xlsx` - Final templates with all formulas populated
+- Analysis reports for verification and debugging
